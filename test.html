@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!--Carré-->
+    <div>
+        <div class="forme" id="carre" style="height:200px; width:200px; border:2px solid red;"></div>
+        <br>
+        <div class="forme" id="carre2" style="height:200px; width:200px; border:2px solid red;"></div>
+        <br>
+        <div class="forme" id="carre3" style="height:200px; width:200px; border:2px solid red;"></div>
+        <br>
+    </div>
+    <div class="forme" id="carre" style="height:200px; width:200px; border:2px solid red;"></div>
+    <br>
+    <!--Rectangle-->
+    <div class="forme" id="rect" style="height:100px; width:200px; border:2px solid yellow;"></div>
+    <script type="text/javascript">
+        const t = document.querySelector("#carre3");
+
+
+        let i = 0;
+        const couleurs = ['blue', 'white', 'red']
+
+        setInterval(() => {
+            t.style.backgroundColor = couleurs[i];
+            i++;
+            if (i == 3) {
+                i = 0;
+            }
+        }, 700);
+    </script>
+</body>
+
+</html>
