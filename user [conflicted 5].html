@@ -10,6 +10,7 @@
     <title>Document</title>
 </head>
 
+
 <button id="addUser" type="button" class="btn btn-primary">Ajouter un utilisateur</button>
 <br>
 <br>
@@ -63,18 +64,14 @@
                 let firstname = document.querySelector('input#firstname').value;
                 let lastname = document.querySelector('input#lastname').value;
                 let birthday = document.querySelector('input#birthday').value;
-                if (firstname != "" || lastname != "" || birthday != "") {
-                    users.push({
-                        firstname: firstname,
-                        lastname: lastname,
-                        birthdate: birthday
-                    });
 
-                    document.querySelector('input#firstname').value = "";
-                    document.querySelector('input#lastname').value = "";
-                    document.querySelector('input#birthday').value = "";
-                    document.getElementById("addUser").click();
-                } else(alert("Veuillez remplir les champs"))
+                //users.push(['firstname:', firstname, 'lastname:', lastname, 'birthday:', birthday]);
+
+                users.push({
+                    firstname: firstname,
+                    lastname: lastname,
+                    birthdate: birthday
+                });
             }
 
             function suppTr(id) {
@@ -98,37 +95,14 @@
 </table>
 <button type="button" id="alldelete" name="alldelete" class="btn btn-danger" onclick="toutsupprimer()">alldelete</button>
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
-<div class="container">
-    <div class="panel panel-primary">
-        <div class="panel-body">
-            <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Ajouter dans le tableau </strong></h3>
-            <tr></tr>
-            <td>Firstname : </td>
-            <tr>
-                <td><input type="text" id="firstname" placeholder="firstname"></input>
-                </td>
-            </tr>
-            <tr>
-                <td>Lastname : </td>
 
-                <td><input type="text" id="lastname" placeholder="lastname"></input>
-                </td>
-            </tr>
-            <tr>
-                <td>birthdate : </td>
+<h2>Ajouter dans le tableau</h2>
 
-                <td><input type="date" id="birthday" placeholder="birthday"></input>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-
-                <td><button type="button" id="Sauver" class="btn btn-danger" onclick="sauver()">Sauver</button></td>
-            </tr>
-        </div>
-    </div>
-</div>
+<br>Firstname : <input type="text" id="firstname" placeholder="firstname"></input>
+<br>Lastname : <input type="text" id="lastname" placeholder="lastname"></input>
+<br>birthdate : <input type="date" id="birthday" placeholder="birthday"></input>
+<br>
+<button type="button" id="Sauver" class="btn btn-danger" onclick="sauver()">Sauver</button>
 
 </form>
 </body>
