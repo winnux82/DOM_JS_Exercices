@@ -9,8 +9,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
-
-<button id="addUser" type="button" class="btn btn-primary">Ajouter un utilisateur</button>
+<h1 id="name">Hello</h1>
+<button id="promptButton" type="button" class="btn btn-primary">prompt</button>
+<button id="addUser" type="button" class="btn btn-primary" title="Ajouter">Ajouter un utilisateur</button>
 <br>
 <br>
 <table id="table" class="table" style="width: 100%;border:1px solid #000">
@@ -42,19 +43,24 @@
 
             let i = 0;
             const tbody = document.querySelector("table tbody");
+
+            document.getElementById("addUser").addEventListener("mouseover", function() {
+                console.log("hello world");
+            })
             document.getElementById("addUser").addEventListener("click", function() {
                 if (users[i] == null) {
                     return;
                 }
                 const u = users[i];
                 tbody.innerHTML += `
-            <tr>
-                <td>${u.firstname}</td>
-                <td>${u.lastname}</td>
-                <td>${u.birthdate}</td>
-                <td><button type="button" onclick="suppTr(${i})" class="btn btn-danger">Supprimer</button></td>
-            </tr>
-            `;
+                <tr id="tr-${i}">
+                    <td>${u.firstname}</td>
+                    <td>${u.lastname}</td>
+                    <td>${u.birthdate}</td>
+                    <td><button type="button" onclick="remove(this)" class="btnSup btn btn-danger">Supprimer</button></td>
+                </tr>
+                `;
+                //<td><button type="button" onclick="suppTr(${i})" class="btn btn-danger">Supprimer</button></td>
                 i++;
             })
 
@@ -81,32 +87,62 @@
 
             }
 
+            function remove(button) {
+                var confirmation = confirm("Êtes vous sûr?")
+                if (confirmation)
+                    button.parentElement.parentElement.remove();
+            }
+
             function suppTr(id) {
                 let table = document.querySelector('table');
                 table.deleteRow(id);
             }
 
             function toutsupprimer() {
-
-                var monTableau = document.getElementById("table");
-                var rowCount = monTableau.rows.length;
-                for (var x = rowCount - 1; x > 0; x--) {
-                    monTableau.deleteRow(x);
-                    //on reset i pour pouvoir remplir à nouveau le tableau
-                    i = 0;
-                }
+                console.log("coucou");
 
             }
+
+            document.getElementById("promptButton").addEventListener("click", () => {
+                    const name = prompt('Quel est votre nom?');
+                    if (name == "") {
+                        return;
+                    }
+                    const h1value = name;
+                    document.getElementById("name").innerHTML = "Bonjour " + name;
+
+                })
+                /*
+                document.getElementById("alldelete").addEventListener("click", () => {
+                    var monTableau = document.getElementById("table");
+                    var rowCount = monTableau.rows.length;
+                    for (var x = rowCount - 1; x > 0; x--) {
+                        monTableau.deleteRow(x);
+                        //on reset i pour pouvoir remplir à nouveau le tableau
+                        i = 0;
+                    }
+                });*/
+
+            document.getElementById("promptButton88").addEventListener("mouseover", () => {
+                console.log("coucou")
+            })
+
+
+            Array.from(document.getElementsByClassName('btnSup')).forEach((btn) => {
+                btn.addEventListener('click', () => console.log('yo'));
+            });
         </script>
     </tbody>
 </table>
-<button type="button" id="alldelete" name="alldelete" class="btn btn-danger" onclick="toutsupprimer()">alldelete</button>
+<button id="alldelete" type="button" class="btn btn-danger">alldelete</button>
+<button id="promptButton88" type="button" class="btn btn-primary">prompt88</button>
 
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
 <div class="container">
     <div class="panel panel-primary">
         <div class="panel-body">
-            <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Ajouter dans le tableau </strong></h3>
+            <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Ajouter dans le tableau </strong>
+            </h3>
             <tr></tr>
             <td>Firstname : </td>
             <tr>
@@ -121,13 +157,11 @@
             </tr>
             <tr>
                 <td>birthdate : </td>
-
                 <td><input type="date" id="birthday" placeholder="birthday"></input>
                 </td>
             </tr>
             <tr>
                 <td></td>
-
                 <td><button type="button" id="Sauver" class="btn btn-danger" onclick="sauver()">Sauver</button></td>
             </tr>
         </div>
