@@ -58,9 +58,15 @@
 <script>
     const message = document.getElementById("message");
     const recopy = document.getElementById("recopy");
-    message.addEventListener('keydown', event => {
-        recopy.textContent = event.target.value;
-    })
+    if (message && recopy) {
+
+        //        message.addEventListener('keyup', function(){recopy.innerHTML =message.value;})
+
+
+        message.addEventListener('keyup', event => {
+            recopy.textContent = event.target.value;
+        });
+    }
 </script>
 
 </html>
