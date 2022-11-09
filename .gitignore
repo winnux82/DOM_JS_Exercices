@@ -1,2 +1,4 @@
 .DS_Store
-formulaire/node_modules/
+node_modules/
+test.html
+/formulaire/
