@@ -50,7 +50,6 @@
         <button class="btn btn-success" id="add" value="Ajouter">Ajouter</button>
       </div>
       <div class="col">
-
         <table class="table table-dark table-striped">
           <thead>
             <tr>
@@ -65,7 +64,6 @@
               <td>Otto</td>
               <td>Mark</td>
               <td>Monsieur</td>
-
               <td><button class="btn btn-success btn-modify m-1"><img
                     src="node_modules/bootstrap-icons/icons/pencil.svg"></button>
                 <button class="btn btn-danger btn-remove"><img src="node_modules/bootstrap-icons/icons/trash.svg">
@@ -94,7 +92,7 @@
     //si on click sur add
     $('#add').click(function () {
       $("#btn-save").html('Ajouter')
-      $("#btn-save").attr('value','Ajouter');
+      $("#btn-save").attr('value', 'Ajouter');
       $('#lastname').val('')
       $('#firstname').val('')
       $('#civilite').val('')
@@ -127,18 +125,17 @@
         //console.log($('#btn-save').attr('value'));
 
 
-          const firstname = document.getElementById('firstname').value.trim();
-          const lastname = document.getElementById('lastname').value.trim();
-          const civilite = document.getElementById('civilite').value.trim();
-          if (firstname.length == 0
-            || lastname.length == 0
-            || civilite.length == 0) {
-            alert('Vous devez renseigner tous les champs !!!!!');
-            return;
-          }
+        const firstname = document.getElementById('firstname').value.trim();
+        const lastname = document.getElementById('lastname').value.trim();
+        const civilite = document.getElementById('civilite').value.trim();
+        if (firstname.length == 0
+          || lastname.length == 0
+          || civilite.length == 0) {
+          alert('Vous devez renseigner tous les champs !!!!!');
+          return;
+        }
 
-        if($('#btn-save').attr('value')=='Ajouter')
-        {
+        if ($('#btn-save').attr('value') == 'Ajouter') {
           form.reset();
           $(userTableTbody).append(`
            <tr>
@@ -149,35 +146,23 @@
                 <button class="btn btn-danger btn-remove"><img src="node_modules/bootstrap-icons/icons/trash.svg"></image></button></td>
             </tr>
         `);
-          //faire réapparaitre la table, 3 façons
+          //faire réapparaitre la table, 3 façons:
           //1
           $('#container-table, #form').toggle('slow')
-          //2
+          //2 beurk
           // containerTable.style.display = 'block';
           // form.style.display = 'none';
-          //3
+          //3 simul click
           // $('#add').trigger('click');
         }
-        if($('#btn-save').attr('value')=='Modifier')
-        {
+        if ($('#btn-save').attr('value') == 'Modifier') {
 
           currow.find('td:eq(0)').text(lastname);
           currow.find('td:eq(1)').text(firstname);
           currow.find('td:eq(2)').text(civilite)
-          // form.reset;
+          form.reset;
           $('#container-table, #form').toggle('slow')
-        //   form.reset();
-        //   $(userTableTbody).append(`
-        //    <tr>
-        //     <td>${lastname}</td>
-        //     <td>${firstname}</td>
-        //     <td>${civilite}</td>
-        //     <td><button class="btn btn-success btn-modify m-1"><img src="node_modules/bootstrap-icons/icons/pencil.svg"></button>
-        //         <button class="btn btn-danger btn-remove"><img src="node_modules/bootstrap-icons/icons/trash.svg"></image></button></td>
-        //     </tr>
-            
-        // `);
-        // $('#container-table, #form').toggle('slow')
+
         }
       });
     }
