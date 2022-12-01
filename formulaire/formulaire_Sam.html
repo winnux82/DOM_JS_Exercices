@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulaire</title>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <style>
+    #form {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-6 offset-3">
+        <!-- Formulaire -->
+        <form id="form">
+          <div class="mb-3">
+            <label for="lastname" class="form-label">Nom</label>
+            <input type="text" class="form-control" id="lastname">
+          </div>
+          <div class="mb-3">
+            <label for="firstname" class="form-label">Prénom</label>
+            <input type="text" class="form-control" id="firstname">
+          </div>
+          <div class="mb-3">
+            <label for="civilite" class="form-label">Civilité</label>
+            <select class="form-select" id="civilite">
+              <option selected></option>
+              <option value="Monsieur">Monsieur</option>
+              <option value="Madame">Madame</option>
+            </select>
+          </div>
+          <!-- npm i bootstrap-icons -->
+          <button id="btn-cancel" type="button" class="btn btn-danger">Annuler</button>
+          <button id="btn-save" type="button" class="btn btn-primary">Envoyer</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- table -->
+    <div class="row mt-5" id="container-table">
+      <div class="col-12 mb-3">
+        <button class="btn btn-success" id="add" value="Ajouter">Ajouter</button>
+      </div>
+      <div class="col">
+
+        <table class="table table-dark table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Nom</th>
+              <th scope="col">Prénom</th>
+              <th scope="col">Civilité</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Otto</td>
+              <td>Mark</td>
+              <td>Monsieur</td>
+
+              <td><button class="btn btn-success btn-modify m-1"><img
+                    src="node_modules/bootstrap-icons/icons/pencil.svg"></button>
+                <button class="btn btn-danger btn-remove"><img src="node_modules/bootstrap-icons/icons/trash.svg">
+                  </image></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+
+  </div>
+  <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript">
+    const containerTable = document.getElementById('container-table');
+    const form = document.getElementById('form');
+    const btnSave = document.getElementById('btn-save');
+    const userTableTbody = document.querySelector('table tbody');
+
+
+    // Bouton Ajouter : display / hide form simplifié Jquery
+    $('#add, #btn-cancel').click(() => $('#container-table, #form').toggle('slow'));
+
+    //si on click sur add
+    $('#add').click(function () {
+      $("#btn-save").html('Ajouter')
+      $("#btn-save").attr('value','Ajouter');
+      $('#lastname').val('')
+      $('#firstname').val('')
+      $('#civilite').val('')
+    });
+    var currow;
+    // bouton modifier
+    $('table').on('click', '.btn-modify', function () {
+
+      //console.log($(this).closest('tr'));
+      $('#add').trigger('click');
+      currow = $(this).closest('tr');
+      console.log(currow);
+      var nom = currow.find('td:eq(0)').text();
+      var prenom = currow.find('td:eq(1)').text();
+      var gender = currow.find('td:eq(2)').text();
+      // console.log(nom + prenom + gender);
+      $('#lastname').val(nom);
+      $('#firstname').val(prenom);
+      $('#civilite').val(gender);
+      //on modifie le btn Ajouter en Modifier
+      $("#btn-save").html('Modifier');
+      $("#btn-save").attr('value', 'Modifier')
+    })
+
+    //Bouton sauver Nouvelle entrée
+    if (btnSave && form && userTableTbody) {
+
+      btnSave.addEventListener('click', (event) => {
+        //event.preventDefault();
+        //console.log($('#btn-save').attr('value'));
+
+
+          const firstname = document.getElementById('firstname').value.trim();
+          const lastname = document.getElementById('lastname').value.trim();
+          const civilite = document.getElementById('civilite').value.trim();
+          if (firstname.length == 0
+            || lastname.length == 0
+            || civilite.length == 0) {
+            alert('Vous devez renseigner tous les champs !!!!!');
+            return;
+          }
+
+        if($('#btn-save').attr('value')=='Ajouter')
+        {
+          form.reset();
+          $(userTableTbody).append(`
+           <tr>
+            <td>${lastname}</td>
+            <td>${firstname}</td>
+            <td>${civilite}</td>
+            <td><button class="btn btn-success btn-modify m-1"><img src="node_modules/bootstrap-icons/icons/pencil.svg"></button>
+                <button class="btn btn-danger btn-remove"><img src="node_modules/bootstrap-icons/icons/trash.svg"></image></button></td>
+            </tr>
+        `);
+          //faire réapparaitre la table, 3 façons
+          //1
+          $('#container-table, #form').toggle('slow')
+          //2
+          // containerTable.style.display = 'block';
+          // form.style.display = 'none';
+          //3
+          // $('#add').trigger('click');
+        }
+        if($('#btn-save').attr('value')=='Modifier')
+        {
+
+          currow.find('td:eq(0)').text(lastname);
+          currow.find('td:eq(1)').text(firstname);
+          currow.find('td:eq(2)').text(civilite)
+          // form.reset;
+          $('#container-table, #form').toggle('slow')
+        //   form.reset();
+        //   $(userTableTbody).append(`
+        //    <tr>
+        //     <td>${lastname}</td>
+        //     <td>${firstname}</td>
+        //     <td>${civilite}</td>
+        //     <td><button class="btn btn-success btn-modify m-1"><img src="node_modules/bootstrap-icons/icons/pencil.svg"></button>
+        //         <button class="btn btn-danger btn-remove"><img src="node_modules/bootstrap-icons/icons/trash.svg"></image></button></td>
+        //     </tr>
+            
+        // `);
+        // $('#container-table, #form').toggle('slow')
+        }
+      });
+    }
+
+    // bouton remove
+    $('table').on('click', '.btn-remove', function () {
+      $(this).closest('tr').remove();
+    });
+  </script>
+
+</body>
+
+</html>

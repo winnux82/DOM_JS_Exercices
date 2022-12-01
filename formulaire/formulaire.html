@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <style>
+    #form {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-6 offset-3">
+
+        <form id="form">
+          <div class="mb-3">
+            <label for="lastname" class="form-label">Nom</label>
+            <input type="text" class="form-control" id="lastname">
+          </div>
+          <div class="mb-3">
+            <label for="firstname" class="form-label">Prénom</label>
+            <input type="text" class="form-control" id="firstname">
+          </div>
+          <div class="mb-3">
+            <label for="civilite" class="form-label">Civilité</label>
+            <select class="form-select" id="civilite">
+              <option selected></option>
+              <option value="1">Monsieur</option>
+              <option value="2">Madame</option>
+            </select>
+          </div>
+
+          <button id="btn-cancel" type="submit" class="btn btn-danger">Annuler</button>
+          <button id="btn-save" type="submit" class="btn btn-primary">Envoyer</button>
+        </form>
+
+      </div>
+    </div>
+
+
+    <div class="row mt-5" id="container-table">
+      <div class="col-12 mb-3">
+        <button class="btn btn-success" id="add">Ajouter</button>
+      </div>
+      <div class="col">
+
+        <table class="table table-dark table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Nom</th>
+              <th scope="col">Prénom</th>
+              <th scope="col">Civilité</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+
+  </div>
+
+  <script type="text/javascript">
+    const containerTable = document.getElementById('container-table');
+    const form = document.getElementById('form');
+    const btnSave = document.getElementById('btn-save');
+    const userTableTbody = document.querySelector('table tbody');
+    
+    
+    // display form
+    document.getElementById("add").addEventListener('click', () => {
+      containerTable.style.display = 'none';
+      form.style.display = 'block';
+    });
+    
+    // hide form
+    document.getElementById("btn-cancel").addEventListener('click', () => {
+      containerTable.style.display = 'block';
+      form.style.display = 'none';
+    });
+
+    if (btnSave && form && userTableTbody) {
+      btnSave.addEventListener('click', (event) => {
+        event.preventDefault();
+        const firstname = document.getElementById('firstname').value.trim();
+        const lastname = document.getElementById('lastname').value.trim();
+        const civilite = document.getElementById('civilite').value.trim();
+        if (firstname.length == 0
+          || lastname.length == 0
+          || civilite.length == 0) {
+          alert('Vous devez renseigner tous les champs !!!!!');
+          return;
+        }
+
+        form.reset();
+        userTableTbody.innerHTML += `
+           <tr>
+              <td>${firstname}</td>
+              <td>${lastname}</td>
+              <td>${civilite}</td>
+            </tr>
+        `;
+
+
+      });
+
+    }
+
+
+  </script>
+
+</body>
+
+</html>
